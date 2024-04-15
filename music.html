@@ -1,0 +1,178 @@
+<html>
+   <head>
+      <meta name="google" content="notranslate">
+      <title>Udhay-Music</title>
+      <link rel="icon" type="image/png" href="http://icons.iconarchive.com/icons/babasse/old-school/256/music-icon.png">
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+      <style>
+         input {
+         display: none;
+         }
+         label {
+         display: block;
+         font-family: sans-serif;
+         color: white;
+         font-weight: bold;
+         font-size: 3em;
+         line-height: 1.5em;
+         width: 10em;
+         margin: .2em;
+         height: 1.5em;
+         padding: 0 1em;
+         border-radius: .50em;
+         position: relative;
+         overflow: hidden;
+         transition: color 500ms;
+         cursor: pointer;
+         }
+         label:before {
+         content: '';
+         position: absolute;
+         top: 0;
+         bottom: 0;
+         left: 0;
+         right: 0;
+         background-color: #DDDCDF;
+         z-index: -2;
+         }
+         audio { 
+         display:none;
+         }
+         video { 
+         display:none;
+         }
+         label:after {
+         content: "\f01d";
+         text-align: right;
+         padding-right: .5em;
+         position: absolute;
+         font-family: FontAwesome;
+         top: 0;
+         bottom: 0;
+         left: -100%;
+         right: 100%;
+         border-radius: .50em;
+         background-color: #98ECA3;
+         color: #98ECA3;
+         z-index: -1;
+         transition-property: left, right, color;
+         transition-duration: 1500ms;
+         }
+         input:checked + label {
+         color: #48AC53
+         }
+         input:checked + label:after {
+         left: 0;
+         right: 0;
+         color: #48AC53;
+         }
+      </style>
+      <script>
+         var value = "212.83.138.48:8328";
+         function init(){
+         	/*document.getElementById('DivExample').innerHTML = "<iframe src='http://"+value+"/stream' style='width: 0; height: 0; border: 0; border: none; position: absolute;'></iframe>";*/
+         }
+         var sound = new Audio('http://212.83.138.48:8328/stream');;
+         
+         function playRadio(item){
+         //document.getElementById('DivExample').innerHTML = "<video controls='' autoplay='' name='media'><source src='http://"+item.value+"/stream;' type='audio/mpeg'></video>";
+           sound.pause();
+           sound.currentTime = 0;
+           sound = new Audio(''+item.value+'');
+           var playPromise = sound.play();
+         }
+         function stop(){
+             sound.pause();
+             sound.currentTime = 0;
+         	document.getElementById('DivExample').innerHTML = "";
+         	var x = document.getElementsByName("radio");
+         	for (var i = 0; i < x.length; ++i) {
+         		var item = x[i];  
+         		item.checked = false;
+         	}
+         }
+      </script>
+   </head>
+   <body onload="init()" align="center">
+      <div id="DivExample"></div>
+      <div align="center" onclick="stop()">
+         <div class="attachment" align="center" style="width:20em;" onclick="event.stopPropagation();">
+            <form>
+               <input type="radio" id="a" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/arrahmanradio"><label for="a">A R Rahman</label>
+			   <!--<input type="radio" id="arrs" name="radio" onclick="playRadio(this)" value="https://psrlive2.listenon.in/arr"><label for="arrs">A R Rahman S</label>-->
+               <input type="radio" id="b" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/arrahmanliteradio"><label for="b">A R Rahman Lite</label>
+			   <input type="radio" id="arrh" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/arrahmanhindiradio"><label for="arrh">A R Rahman Hindi</label>
+			   <input type="radio" id="arr1" name="radio" onclick="playRadio(this)" value="https://ec5.yesstreaming.net:2320/stream"><label for="arr1">A R Rahman 1</label>
+               <input type="radio" id="arr2" name="radio" onclick="playRadio(this)" value="https://www.liveradio.es/http://stream.zeno.fm/ihpr0rqzoxquv"><label for="arr2">A R Rahman 2</label>
+               <input type="radio" id="arr3" name="radio" onclick="playRadio(this)" value="https://ec3.yesstreaming.net:4035/stream"><label for="arr3">A R Rahman 3</label>
+               <input type="radio" id="arr4" name="radio" onclick="playRadio(this)" value="https://s7.yesstreaming.net:8038/stream"><label for="arr4">A R Rahman 4</label>
+			   <!--<input type="radio" id="arrd" name="radio" onclick="playRadio(this)" value="https://free.rcast.net/205769"><label for="arrd">A R Rahman D</label>-->
+               <input type="radio" id="c" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/harrishjeyarajradio"><label for="c">Harris Jayaraj</label>
+               <input type="radio" id="he" name="radio" onclick="playRadio(this)" value="https://psrlive4.listenon.in/hjr?station=harrishjeyarajradio"><label for="he">Harris Jayaraj S</label>
+			   <input type="radio" id="hjr" name="radio" onclick="playRadio(this)" value="https://stream.zeno.fm/0bhsthssutzuv"><label for="hjr">Harris 1</label>
+               <input type="radio" id="d" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/ilayamaanradio""><label for="d">Ilayamaan</label>
+               <input type="radio" id="d1" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/ilayamaanliteradio"><label for="d1">Ilayamaan Lite</label>
+               <input type="radio" id="e" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/ilayarajaradio"><label for="e">Ilayaraja</label>
+               <input type="radio" id="f" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/ilayarajalite"><label for="f">Ilayaraja Lite</label>
+               <input type="radio" id="g" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/ilayarajasuperbeatradio"><label for="g">Ilayaraja Beats</label>
+               <input type="radio" id="h" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/anirudhradio"><label for="h">Anirudh</label>
+               <input type="radio" id="i" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/kschitra"><label for="i">K S Chithra</label>
+               <input type="radio" id="janaki" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/janakiradio"><label for="janaki">S Janaki</label>
+               <input type="radio" id="j" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/ysrradio"><label for="j">Yuvan</label>
+               <input type="radio" id="k" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/spbradio"><label for="k">SPB</label>
+               <input type="radio" id="mv" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/malaysiavasudevanradio"><label for="mv">Malaysia Vasudevan</label>
+               <input type="radio" id="l" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/kjyesudas"><label for="l">KJ Yesudas</label>
+               <input type="radio" id="m" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/tamil80shitsradio"><label for="m">Tamil 80s</label>
+               <input type="radio" id="n" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/tamil90shitradio"><label for="n">Tamil 90s</label>
+               <input type="radio" id="o" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/palaiyapaadalradio"><label for="o">Palaiya Paadal</label>
+               <input type="radio" id="p" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/puthupaadalradio"><label for="p">New Songs</label>
+               <input type="radio" id="q" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/devaradio"><label for="q">Deva</label><br>
+               <input type="radio" id="r" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/hariharanradio"><label for="r">Hariharan</label>
+               <input type="radio" id="s" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/tamilbeatradio"><label for="s">Tamil Beat</label>
+               <input type="radio" id="t" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/tamilliteradio"><label for="t">Tamil Lite</label>
+               <input type="radio" id="u" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/kadhalradio"><label for="u">Kadhal Radio</label>
+               <input type="radio" id="v" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/sarajkumarradio"><label for="v">S A Rajkumar</label>
+               <input type="radio" id="w" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/vidyasagarradio"><label for="w">Vidyasagar</label>
+               <input type="radio" id="tpop" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/tamilpopradio"><label for="tpop">Tamil Pop</label>
+               <input type="radio" id="iman" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/immanradio"><label for="iman">D Iman</label>
+               <input type="radio" id="ivoice" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/isaignaniradio"><label for="ivoice">Ilayaraja Voice</label>
+               <input type="radio" id="mohan" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/mohanradio"><label for="mohan">Mohan Hits</label>
+               <input type="radio" id="puradsi" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/puradsifm"><label for="puradsi">3D Puradsi FM</label>
+               <input type="radio" id="ajit" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/ajithradio"><label for="ajit">Ajit</label>
+               <input type="radio" id="vijay" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/vijayradio"><label for="vijay">Vijay</label>
+               <input type="radio" id="ajitvijay" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/thalathalapathyradio"><label for="ajitvijay">Ajit Vijay</label>
+               <input type="radio" id="unik" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/unnikrishanradio"><label for="unik">Unnikrishnan</label>
+			   <input type="radio" id="tamdj" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/tamildjremix"><label for="tamdj">Tamil DJ</label>
+               <input type="radio" id="ttk" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/2kradio"><label for="ttk">Tamil 2K</label>
+               <input type="radio" id="x" name="radio" onclick="playRadio(this)" value="http://195.154.217.103:8175/stream"><label for="x">A9 Radio</label>
+               <input type="radio" id="y" name="radio" onclick="playRadio(this)" value="http://69.46.24.226:7188/stream"><label for="y">American Tamil</label>
+               <input type="radio" id="z" name="radio" onclick="playRadio(this)" value="http://31.14.40.149:8000/stream"><label for="z">Tamil 894 FM</label>
+               <input type="radio" id="aa" name="radio" onclick="playRadio(this)" value="http://144.217.195.24:8436/stream"><label for="aa">Yet Radio</label>
+               <input type="radio" id="bb" name="radio" onclick="playRadio(this)" value="http://149.202.22.75:8032/live"><label for="bb">Lankasri FM</label>
+               <input type="radio" id="cc" name="radio" onclick="playRadio(this)" value="http://38.96.148.18:6150/stream"><label for="cc">GTBC Radio</label>
+               <input type="radio" id="dd" name="radio" onclick="playRadio(this)" value="http://217.182.165.146:8191/stream"><label for="dd">Ezhisai FM</label>
+               <input type="radio" id="ee" name="radio" onclick="playRadio(this)" value="http://192.95.18.39:5012/stream2"><label for="ee">Chellam FM</label>
+               <input type="radio" id="ff" name="radio" onclick="playRadio(this)" value="http://37.187.93.104:8054/stream"><label for="ff">ETR.FM</label>
+               <input type="radio" id="gg" name="radio" onclick="playRadio(this)" value="http://192.99.17.12:4626/inbathamil"><label for="gg">Inbathamil</label>
+               <input type="radio" id="hh" name="radio" onclick="playRadio(this)" value="http://149.56.157.81:8487/stream"><label for="hh">Friends Tamil FM</label>
+               <input type="radio" id="ii" name="radio" onclick="playRadio(this)" value="http://37.187.79.93:9116/stream"><label for="ii">ThenralWorldRadio</label>
+               <input type="radio" id="jj" name="radio" onclick="playRadio(this)" value="http://69.197.169.178:28232/stream"><label for="jj">Radio Ayyappa</label>
+               <input type="radio" id="kk" name="radio" onclick="playRadio(this)" value="http://s8.voscast.com:7404/stream"><label for="kk">ILAMAIFM</label>
+               <input type="radio" id="ll" name="radio" onclick="playRadio(this)" value="http://188.165.237.19:8717/stream"><label for="ll">Radio Vaanam</label>
+               <input type="radio" id="mm" name="radio" onclick="playRadio(this)" value="http://37.187.174.88:8127/stream"><label for="mm">Saalaram Valaioli</label>
+               <input type="radio" id="nn" name="radio" onclick="playRadio(this)" value="http://70.121.72.28:8000/stream.mp3"><label for="nn">Kuvalai Edu</label>
+               <input type="radio" id="oo" name="radio" onclick="playRadio(this)" value="http://158.69.4.171:8026/stream"><label for="oo">Vadivelu</label>
+               <input type="radio" id="tamilcomedy" name="radio" onclick="playRadio(this)" value="http://158.69.4.171:8349/stream"><label for="tamilcomedy">Tamil comedy</label>
+               <input type="radio" id="radiobeat" name="radio" onclick="playRadio(this)" value="https://str2b.openstream.co/673"><label for="radiobeat">Radio Beat</label>
+			   <input type="radio" id="arijit" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/arijitsinghradio"><label for="arijit">ArijitSingh Hindi</label>
+			   <input type="radio" id="mallu" name="radio" onclick="playRadio(this)" value="https://southradios.net/play/malayalamradio"><label for="mallu">Malayalam</label>
+               <input type="radio" id="gsenthil" name="radio" onclick="playRadio(this)" value="src="https://goundamanisenthil.gomaly.com/proxy/goundamanisenthil?mp=/live""><label for="gsenthil">Gow Sen Comedy</label>
+            </form>
+         </div>
+      </div>
+      <div class="testing">
+         <p><b style="color:rgb(255,102,102)" align="center"><font size="4"><span style="font-family:trebuchet ms">Disclaimer</span></font></b><br>All the links used in this site is for demo/testing purpose only, The copyright in this website and the material on this website (including limitation the text, computer code, artwork, photographs, images, music, audio material, video material and audio-visual material on this website) is owned by respective owners and its licensors. Site owner is not responsible for any misuse or unauthorized access to the source and content</p>
+      </div>
+   </body>
+</html>
+<!-- https://dir.rcast.net/default-233069 -->
