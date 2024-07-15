@@ -14,6 +14,12 @@ global.intervalId;
 // App
 const app = express();
 
+app.get('/ping', (req, res) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('ok');
+});
+
 app.get('/music', (req, res) => {
     res.setHeader("Content-Type", "text/html");
     var html = fs.readFileSync(__dirname + '/music.html', 'utf8');
