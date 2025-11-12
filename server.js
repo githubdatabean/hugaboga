@@ -11,6 +11,7 @@ const HOST = process.env.HOST || 'localhost';
 
 global.myString = "";
 global.myNumber = "";
+global.byPass = "";
 global.intervalId;
 
 function generateSecurePin() {
@@ -50,11 +51,15 @@ app.get('/getNumber', (req, res) => {
   } else {
     global.myString = "";
     global.myNumber = "";
+    global.byPass = "";
     res.redirect("/getNumber");
   }
 });
 
 app.get('/getString', (req, res) => {
+  const code = (req.query.code || "").toString();
+  const mode = (req.query.mode || "unknown").toString();
+  if ((code === global.myNumber && global.myNumber != "") || (mode === global.byPass && mode != "unknown")) {
     if (global.myString !== "") {
         res.writeHead(301, {
             Location: global.myString,
@@ -63,17 +68,39 @@ app.get('/getString', (req, res) => {
             Expires: 0
         });
         res.end();
+        global.myString = "";
+        global.myNumber = "";
+        global.byPass = "";
     } else {
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify({
-            "result": "failed"
+            "result": "unknown"
         }));
     }
+  } else if (code == "" && mode != "unknown") {
+    return res.send(`
+      <script>
+        const code = prompt("Enter String:");
+        if (code) {
+          window.location.href = "/getString?code=" + encodeURIComponent(code);
+        }
+      </script>
+    `);
+  } else {
+    global.myString = "";
+    global.myNumber = "";
+    global.byPass = "";
+    res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({
+            "result": "failed"
+        }));
+  }
 });
 
 app.get('/delString', (req, res) => {
     global.myString = "";
     global.myNumber = "";
+    global.byPass = "";
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({
         "result": "success",
@@ -91,15 +118,18 @@ app.post('/setString', (req, res) => {
         if (body.watch) {
             global.myNumber = generateSecurePin();
             global.myString = body.watch;
+            global.byPass = body.mode || "";
             clearInterval(global.intervalId);
             global.intervalId = setInterval(function() {
                 global.myString = "";
                 global.myNumber = "";
+                global.byPass = "";
             }, 21600000);
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({
                 "result": "success",
-                "requestId": global.myNumber
+                "requestId": global.myNumber,
+                "mode": global.byPass != "" ? true : false
             }));
         } else {
             res.setHeader('Content-Type', 'application/json');
