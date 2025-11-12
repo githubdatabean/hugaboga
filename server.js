@@ -50,7 +50,7 @@ app.get('/getNumber', (req, res) => {
   } else {
     global.myString = "";
     global.myNumber = "";
-    return res.json({ result: "failed" });
+    res.redirect("/");
   }
 });
 
