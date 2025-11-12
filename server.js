@@ -15,7 +15,7 @@ global.intervalId;
 
 function generateSecurePin() {
   // Generates a random integer between 1000 (inclusive) and 10000 (exclusive)
-  return crypto.randomInt(1000, 10000); 
+  return crypto.randomInt(1000, 10000).toString(); 
 }
 
 // App
@@ -34,7 +34,7 @@ app.get('/music', (req, res) => {
 });
 
 app.get('/getNumber', (req, res) => {
-  const code = req.query.code;
+  const code = req.query.code && req.query.code.toString();
   if (code === global.myNumber && global.myNumber != "") {
     global.myNumber = generateSecurePin();
     return res.json({ result: "success", requestId: global.myNumber });
@@ -50,7 +50,7 @@ app.get('/getNumber', (req, res) => {
   } else {
     global.myString = "";
     global.myNumber = "";
-    res.redirect("/");
+    res.redirect("/getNumber");
   }
 });
 
