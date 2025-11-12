@@ -98,7 +98,7 @@ app.post('/setString', (req, res) => {
             }, 21600000);
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({
-                "result": "success"
+                "result": "success",
                 "requestId": global.myNumber
             }));
         } else {
