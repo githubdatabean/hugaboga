@@ -2,6 +2,7 @@
 
 const request = require("request");
 const express = require('express');
+const crypto = require('crypto');
 const fs = require('fs');
 
 // Constants
@@ -9,7 +10,13 @@ const PORT = process.env.PORT || 8080;
 const HOST = process.env.HOST || 'localhost';
 
 global.myString = "";
+global.myNumber = "";
 global.intervalId;
+
+function generateSecurePin() {
+  // Generates a random integer between 1000 (inclusive) and 10000 (exclusive)
+  return crypto.randomInt(1000, 10000); 
+}
 
 // App
 const app = express();
@@ -24,6 +31,27 @@ app.get('/music', (req, res) => {
     res.setHeader("Content-Type", "text/html");
     var html = fs.readFileSync(__dirname + '/music.html', 'utf8');
     res.end(html);
+});
+
+app.get('/getNumber', (req, res) => {
+  const code = req.query.code;
+  if (code === global.myNumber && global.myNumber != "") {
+    global.myNumber = generateSecurePin();
+    return res.json({ result: "success", requestId: global.myNumber });
+  } else if (code == null || code == undefined || code == "") {
+    return res.send(`
+      <script>
+        const code = prompt("Enter String:");
+        if (code) {
+          window.location.href = "/getNumber?code=" + encodeURIComponent(code);
+        }
+      </script>
+    `);
+  } else {
+    global.myString = "";
+    global.myNumber = "";
+    return res.json({ result: "failed" });
+  }
 });
 
 app.get('/getString', (req, res) => {
@@ -45,6 +73,7 @@ app.get('/getString', (req, res) => {
 
 app.get('/delString', (req, res) => {
     global.myString = "";
+    global.myNumber = "";
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({
         "result": "success",
@@ -60,14 +89,17 @@ app.post('/setString', (req, res) => {
     req.on('end', () => {
         body = JSON.parse(body);
         if (body.watch) {
+            global.myNumber = generateSecurePin();
             global.myString = body.watch;
             clearInterval(global.intervalId);
             global.intervalId = setInterval(function() {
                 global.myString = "";
+                global.myNumber = "";
             }, 21600000);
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({
                 "result": "success"
+                "requestId": global.myNumber
             }));
         } else {
             res.setHeader('Content-Type', 'application/json');
